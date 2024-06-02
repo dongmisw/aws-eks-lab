@@ -237,6 +237,11 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.name=aws-load-balancer-controller 
 ```
 
+- loadbalancer가 생성되었는지 확인
+```shell
+kubectl get deployment -n kube-system aws-load-balancer-controller
+```
+
 ### Game 2048
 - kubectl
 - https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/alb-ingress.html
@@ -252,6 +257,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-bala
 ```shell
 kubectl get ingress/ingress-2048 -n game-2048
 ```
+
 
 ### Helm Chart Application
 
