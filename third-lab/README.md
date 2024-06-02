@@ -195,6 +195,13 @@ role_name=Custom_EKS_LBC_Role-$cluster_name
 account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 ```
 
+- OIDC 는 기본적으로 활성화 되어 있지 않으므로, 활성화 시켜준다.
+- IAM OIDC Provider는 기본적으로 활성화되어 있지 않기 때문에 (default: not enabled) 하기 명령어를 이용하여 클러스터에 IAM OIDC provider를 associate 합니다. (OIDC 생성)
+  
+```shell
+eksctl utils associate-iam-oidc-provider --cluster=<EKS_CLUSTER_NAME> --approve
+```
+
 ```shell
 eksctl create iamserviceaccount \
   --cluster=${cluster_name} \
