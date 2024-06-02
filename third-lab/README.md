@@ -252,7 +252,7 @@ kubectl get deployment -n kube-system aws-load-balancer-controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/examples/2048/2048_full.yaml
 ```
 
-- 몇 분후, 인그레스 리소스가 다음 명령으로 생성되었는지 확인합니다.
+- 몇 분후, 인그레스 리소스가 다음 명령으로 생성되었는지 확인합니다.  EC2-loadbalancer에 가서 확인
 
 ```shell
 kubectl get ingress/ingress-2048 -n game-2048
