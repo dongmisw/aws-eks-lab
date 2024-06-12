@@ -86,7 +86,7 @@ eks_cluster_name="demo-eks"
 aws eks update-kubeconfig --region us-east-1 --name $eks_cluster_name
 ```
 
-3. AWS IAM - AWS Load Balancer Controller Role - Trust Policy 데이터 수정
+3. AWS IAM - AWS Load Balancer Controller Role - Trust Policy 데이터 수정 -클러스터에 대한 IAM OIDC 공급자 생성
 
 ```shell
 oidc_id=$(aws eks describe-cluster --region us-east-1 --name demo-eks --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
@@ -94,7 +94,13 @@ aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 ```
 
 - 출력 내용 확인
-- **공백일 경우 다음 단계 진행 불가하며 확인 필요**
+- **공백일 경우 다음 단계 진행 불가**
+- IAM OIDC 공급자 생성
+```shell
+eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+```
+
+
 
 ```shell
 sed -i.bak -e "s|your-oidc-id|${oidc_id}|" ./load-balancer-role-trust-policy.json
