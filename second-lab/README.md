@@ -94,13 +94,12 @@ aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 ```
 
 - 출력 내용 확인
-- **공백일 경우 다음 단계 진행 불가**
+- **공백일 경우IAM OIDC 공급자 생성**
+
 - IAM OIDC 공급자 생성
 ```shell
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ```
-
-
 
 ```shell
 sed -i.bak -e "s|your-oidc-id|${oidc_id}|" ./load-balancer-role-trust-policy.json
