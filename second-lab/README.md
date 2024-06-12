@@ -69,6 +69,11 @@ aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ```
 
+- IAM OIDC 공급자 확인
+```shell
+aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
+```
+
 ```shell
 sed -i.bak -e "s|your-oidc-id|${oidc_id}|" ./load-balancer-role-trust-policy.json
 ```
