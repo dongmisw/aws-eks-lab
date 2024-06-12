@@ -19,53 +19,8 @@
 2. AWS CLI v2 설치/업데이트 (https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/getting-started-install.html)
 
 3. eksctl 설치 (https://eksctl.io/introduction/#installation)
-  
-4. Clone Git Repository
 
-```shell
-git clone https://github.com/iskycloud/aws-eks-lab.git
-```
-
-### Amazone VPC, EKS 리소스 생성
-
-1. 작업 디렉토리 이동
-
-```shell
-cd ./aws-eks-lab/second-lab/terraform/
-```
-
-2. Terraform 초기화
-
-```shell
-terraform init
-```
-
-3. Terraform dry run
-
-```shell
-terraform plan
-```
-
-- 출력 내용 확인
-
-4. Terraform apply
-
-```shell
-terraform apply
-```
-
-- 출력 내용 확인
-- yes 입력하고 엔터
-
-### AWS Load Balancer Controller 추가 기능 설치
-
-1. 작업 디렉토리 이동
-
-```shell
-cd ../aws-load-balancer-controller/
-```
-
-2. kubectl 설치
+4. kubectl 설치
 
 ```shell
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.26.2/2023-03-17/bin/linux/amd64/kubectl
@@ -80,7 +35,26 @@ eks_cluster_name="demo-eks"
 aws eks update-kubeconfig --region us-east-1 --name $eks_cluster_name
 ```
 
-3. AWS IAM - AWS Load Balancer Controller Role - Trust Policy 데이터 수정 -클러스터에 대한 IAM OIDC 공급자 생성
+5. Clone Git Repository
+
+```shell
+git clone https://github.com/iskycloud/aws-eks-lab.git
+```
+
+### Amazone VPC, EKS 리소스 생성
+
+1.  aws console에서 생성 했음을 가정하고 진행
+2.  aws configure로 접속 하여 리소스 확인
+
+### AWS Load Balancer Controller 추가 기능 설치
+
+1. 작업 디렉토리 이동
+
+```shell
+cd ../aws-load-balancer-controller/
+```
+
+2. AWS IAM - AWS Load Balancer Controller Role - Trust Policy 데이터 수정 -클러스터에 대한 IAM OIDC 공급자 생성
 
 ```shell
 oidc_id=$(aws eks describe-cluster --region us-east-1 --name demo-eks --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
