@@ -3,14 +3,12 @@
 ## 개요
 
 - 실습 내용
-  - Terraform을 활용한 Amazon VPC, EKS 리소스 생성
   - AWS Load Balancer Controller 추가 기능 설치
   - Game 2048 배포
   - Game 2048 서비스 확인
 - 실습 완료 후, 실습 리소스 삭제
   - Game 2048 삭제
   - AWS IAM - AWS Load Balancer Controller 관련 리소스 삭제
-  - Terraform을 활용한 Amazon EKS 리소스 삭제
 
 ## 진행 절차
 
@@ -18,15 +16,11 @@
 
 1. EC2 인스턴스 생성 및 SSH 접속
 
-2. Terraform 설치
+2. AWS CLI v2 설치/업데이트 (https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/getting-started-install.html)
 
-```shell
-sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-sudo yum -y install terraform
-```
-
-3. Clone Git Repository
+3. eksctl 설치 (https://eksctl.io/introduction/#installation)
+  
+4. Clone Git Repository
 
 ```shell
 git clone https://github.com/iskycloud/aws-eks-lab.git
