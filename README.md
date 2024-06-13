@@ -151,7 +151,7 @@ helm repo update
 ```shell
 cluster_name=
 ```
-
+- **--set serviceAccount.name=aws-load-balancer-controller-${eks_cluster_name} ** serviceAccount.name 수정(2024.06.14)
 ```shell
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
