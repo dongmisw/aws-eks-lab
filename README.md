@@ -191,6 +191,14 @@ kubectl get ingress/ingress-2048 -n game-2048
 kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/examples/2048/2048_full.yaml
 ```
 
+
+## LoadbalancerController 삭제
+
+1. Helm을 사용해서 삭제
+```shell
+helm uninstall aws-load-balancer-controller -n kube-system
+```
+
 ### AWS IAM - AWS Load Balancer Controller 관련 리소스 삭제
 
 1. AWS IAM - AWS Load Balancer Controller Role - Policy 연결 해제
