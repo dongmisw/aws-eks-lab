@@ -207,36 +207,7 @@ helm uninstall aws-load-balancer-controller -n kube-system
 
 ![image](https://github.com/dongmisw/aws-eks-lab/assets/126965987/39d78273-8ced-4180-ab78-930a48aef7ed)
 
-### AWS IAM - AWS Load Balancer Controller 관련 리소스 삭제
-
-1. AWS IAM - AWS Load Balancer Controller Role - Policy 연결 해제
-
-```shell
-account_id=$(aws sts get-caller-identity --query 'Account' --output text)
-```
-
-```shell
-aws iam detach-role-policy \
-  --policy-arn arn:aws:iam::${account_id}:policy/AWSLoadBalancerControllerIAMPolicy \
-  --role-name AmazonEKSLoadBalancerControllerRole
-```
-
-2. AWS IAM - AWS Load Balancer Controller Policy 삭제
-
-```shell
-account_id=$(aws sts get-caller-identity --query 'Account' --output text)
-```
-
-```shell
-aws iam delete-policy \
-  --policy-arn arn:aws:iam::${account_id}:policy/AWSLoadBalancerControllerIAMPolicy
-```
-
-3. AWS IAM - AWS Load Balancer Controller Role 삭제
-
-```shell
-aws iam delete-role --role-name AmazonEKSLoadBalancerControllerRole
-```
+ 
 
 ### Amazone VPC, EKS 리소스 삭제
 
