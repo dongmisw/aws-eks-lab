@@ -60,7 +60,8 @@ kubectl version --short --client
 
 ```shell
 eks_cluster_name="demo-eks"
-aws eks update-kubeconfig --region us-east-1 --name $eks_cluster_name
+region_name="us-east-1"
+aws eks update-kubeconfig --region $region_name --name $eks_cluster_name
 ```
 
 5. Helm 설치
@@ -76,12 +77,7 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 helm version
 ```
   
-  
-6. Clone Git Repository
 
-```shell
-git clone https://github.com/iskycloud/aws-eks-lab.git
-```
 
 ### Amazone VPC, EKS 리소스 생성
 
@@ -94,7 +90,9 @@ git clone https://github.com/iskycloud/aws-eks-lab.git
 1. 클러스터에 대한 IAM OIDC 공급자 생성
 
 ```shell
-oidc_id=$(aws eks describe-cluster --region us-east-1 --name demo-eks --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+eks_cluster_name="demo-eks"
+region_name="us-east-1"
+oidc_id=$(aws eks describe-cluster --region $region_name --name $eks_cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
 aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 ```
 
@@ -103,7 +101,7 @@ aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 
 - IAM OIDC 공급자 생성
 ```shell
-eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+eksctl utils associate-iam-oidc-provider --cluster $eks_cluster_name --approve
 ```
 
 - IAM OIDC 공급자 확인
@@ -118,22 +116,26 @@ aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 - my-cluster를 사용자 클러스터 이름으로 바꾸고 111122223333을 계정 ID로 바꾼 다음 명령을 실행합니다.
 
 ```shell
-cluster_name=
+eks_cluster_name= 
 ```
 
 ```shell
-role_name=Custom_EKS_LBC_Role-$cluster_name
+region_name=
+```
+
+```shell
+role_name=Custom_EKS_LBC_Role-$eks_cluster_name
 ```
 
 ```shell
 account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 ```
-- name, role-name 모두 다르게 해야 error가 안남. **--name=aws-load-balancer-controller-${cluster_name}**  이부분 모두 다르게 나오도록 수정 (2024년 06월 14일)
+- name, role-name 모두 다르게 해야 error가 안남. **--name=aws-load-balancer-controller-${eks_cluster_name}**  이부분 모두 다르게 나오도록 수정 (2024년 06월 14일)
 ```shell
 eksctl create iamserviceaccount \
-  --cluster=${cluster_name} \
+  --cluster=${eks_cluster_name} \
   --namespace=kube-system \
-  --name=aws-load-balancer-controller-${cluster_name} \
+  --name=aws-load-balancer-controller-${eks_cluster_name} \
   --role-name ${role_name} \
   --attach-policy-arn=arn:aws:iam::${account_id}:policy/AWSLoadBalancerControllerIAMPolicy \
   --approve
@@ -159,9 +161,9 @@ cluster_name=
 ```shell
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
-  --set clusterName=${cluster_name} \
+  --set clusterName=${eks_cluster_name} \
   --set serviceAccount.create=false \
-  --set serviceAccount.name=aws-load-balancer-controller-${cluster_name} 
+  --set serviceAccount.name=aws-load-balancer-controller-${eks_cluster_name} 
 ```
 
 ### Game 2048
