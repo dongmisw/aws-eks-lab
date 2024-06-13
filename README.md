@@ -176,7 +176,10 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-bala
 kubectl get ingress/ingress-2048 -n game-2048
 ```
 
-
+- pod 확인
+```shell
+kubectl get pods -A
+```
 ## Game 2048 삭제
 
 1. Kubernetes - Game 2048 삭제
@@ -185,7 +188,10 @@ kubectl get ingress/ingress-2048 -n game-2048
 kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/examples/2048/2048_full.yaml
 ```
 
-
+- pod 확인
+```shell
+kubectl get pods -A
+```
 ## LoadbalancerController 삭제
 
 1. Helm을 사용해서 삭제
