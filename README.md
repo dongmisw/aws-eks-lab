@@ -122,16 +122,10 @@ eks_cluster_name=
 ```shell
 region_name=
 ```
-
-```shell
-role_name=Custom_EKS_LBC_Role-$eks_cluster_name
-```
-
-```shell
-account_id=$(aws sts get-caller-identity --query 'Account' --output text)
-```
 - name, role-name 모두 다르게 해야 error가 안남. **--name=aws-load-balancer-controller-${eks_cluster_name}**  이부분 모두 다르게 나오도록 수정 (2024년 06월 14일)
 ```shell
+role_name=Custom_EKS_LBC_Role-$eks_cluster_name
+account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 eksctl create iamserviceaccount \
   --cluster=${eks_cluster_name} \
   --namespace=kube-system \
