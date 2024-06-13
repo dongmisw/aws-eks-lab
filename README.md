@@ -128,7 +128,7 @@ role_name=Custom_EKS_LBC_Role-$cluster_name
 ```shell
 account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 ```
-- name, role-name 모두 다르게 해야 error가 안남.  --name=aws-load-balancer-controller-${cluster_name}  이부분 모두 다르게 나오도록 수정 (2024년 06월 14일)
+- name, role-name 모두 다르게 해야 error가 안남. **--name=aws-load-balancer-controller-${cluster_name}**  이부분 모두 다르게 나오도록 수정 (2024년 06월 14일)
 ```shell
 eksctl create iamserviceaccount \
   --cluster=${cluster_name} \
@@ -161,7 +161,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
   --set clusterName=${cluster_name} \
   --set serviceAccount.create=false \
-  --set serviceAccount.name=aws-load-balancer-controller 
+  --set serviceAccount.name=aws-load-balancer-controller-${cluster_name} 
 ```
 
 ### Game 2048
