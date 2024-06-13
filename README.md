@@ -128,12 +128,12 @@ role_name=Custom_EKS_LBC_Role-$cluster_name
 ```shell
 account_id=$(aws sts get-caller-identity --query 'Account' --output text)
 ```
-
+- name, role-name 모두 다르게 해야 error가 안남.  --name=aws-load-balancer-controller-${cluster_name}  이부분 모두 다르게 나오도록 수정 (2024년 06월 14일)
 ```shell
 eksctl create iamserviceaccount \
   --cluster=${cluster_name} \
   --namespace=kube-system \
-  --name=aws-load-balancer-controller \
+  --name=aws-load-balancer-controller-${cluster_name} \
   --role-name ${role_name} \
   --attach-policy-arn=arn:aws:iam::${account_id}:policy/AWSLoadBalancerControllerIAMPolicy \
   --approve
