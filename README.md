@@ -192,12 +192,20 @@ kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-bal
 ```shell
 kubectl get pods -A
 ```
+
+-load balancer pod가 있는 것을 확
+![image](https://github.com/dongmisw/aws-eks-lab/assets/126965987/618f6393-5477-42ca-a78f-24b4036fe65f)
+
 ## LoadbalancerController 삭제
 
 1. Helm을 사용해서 삭제
 ```shell
 helm uninstall aws-load-balancer-controller -n kube-system
 ```
+
+2. load balancer pod가 사라짐을 확인
+
+![image](https://github.com/dongmisw/aws-eks-lab/assets/126965987/39d78273-8ced-4180-ab78-930a48aef7ed)
 
 ### AWS IAM - AWS Load Balancer Controller 관련 리소스 삭제
 
